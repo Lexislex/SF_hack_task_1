@@ -1,25 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
-# app.config['APPLICATION_ROOT'] = '/hackathon'
-
-# Доступные типы полей для добавления
-FIELD_TYPES = {
-    'text': {'type': 'text', 'label': 'Текстовое поле', 'default': 'Значение по умолчанию'},
-    'email': {'type': 'email', 'label': 'Email', 'default': 'example@mail.com'},
-    'number': {'type': 'number', 'label': 'Число', 'default': 0},
-    'agreement': {'type': 'checkbox', 'label': 'Согласие', 'value': 'yes', 'default': True},
-    'birthdate': {'type': 'date', 'label': 'Дата рождения', 'default': '2000-01-01'},
-    'gender': {'type': 'select', 'label': 'Пол', 
-               'options': ['Мужской', 'Женский'], 'default': 'Мужской'}
-}
 
 # Обязательные поля с значениями по умолчанию
 REQUIRED_FIELDS = {
-    # 'first_name': {'type': 'text', 'label': 'Имя', 'required': True, 'default': 'Иван'},
-    # 'last_name': {'type': 'text', 'label': 'Фамилия', 'required': True, 'default': 'Иванов'},
-    # 'email': {'type': 'email', 'label': 'Email', 'required': True, 'default': 'example@mail.com'},
-    # 'phone': {'type': 'text', 'label': 'Телефон', 'required': True, 'default': '+79991234567'},
     'sex': {'type': 'select', 'label': 'Пол', 'required': True, 
             'options': ['Муж.', 'Жен.'], 'default': 'Муж.'},
     'birth_date': {'type': 'date', 'label': 'Дата рождения', 'required': True, 'default': '2000-01-01'},
@@ -46,11 +30,22 @@ REQUIRED_FIELDS = {
     }
 }
 
+# Доступные типы полей для добавления
+FIELD_TYPES = {
+    'text': {'type': 'text', 'label': 'Текстовое поле', 'default': 'Значение по умолчанию'},
+    'email': {'type': 'email', 'label': 'Email', 'default': 'example@mail.com'},
+    'number': {'type': 'number', 'label': 'Число', 'default': 0},
+    'agreement': {'type': 'checkbox', 'label': 'Согласие', 'value': 'yes', 'default': True},
+    'birthdate': {'type': 'date', 'label': 'Дата рождения', 'default': '2000-01-01'},
+    'gender': {'type': 'select', 'label': 'Пол', 
+               'options': ['Мужской', 'Женский'], 'default': 'Мужской'}
+}
+
 def process_data(form_data):
-    result = ["<strong>Обязательные поля:</strong>"]
-    required_results = []
+    required_results = ["<strong>Обязательные поля:</strong>"]
     additional_results = ["<strong>Дополнительные поля:</strong>"]
-    
+    recomendations = ["<strong>Рекомендации:</strong>"]
+
     for field_name, value in form_data.items():
         if field_name in REQUIRED_FIELDS:
             required_results.append(f"{REQUIRED_FIELDS[field_name]['label']}: {value}")
@@ -58,9 +53,13 @@ def process_data(form_data):
             additional_results.append(f"{FIELD_TYPES[field_name]['label']}: {value}")
     
     if len(additional_results) == 1:
-        additional_results.append("Нет дополнительных полей")
+        # additional_results.append("Нет дополнительных полей")
+        additional_results.clear()
+
+    # Тут должен быть вызов функции предсказания и рекомендаций
+    # print(form_data.to_dict())
     
-    return "<br>".join(result + required_results + additional_results)
+    return "<br>".join(required_results + additional_results + recomendations)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
