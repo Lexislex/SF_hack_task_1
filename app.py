@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
+app.config['APPLICATION_ROOT'] = '/hackathon'
 
 # Доступные типы полей для добавления
 FIELD_TYPES = {

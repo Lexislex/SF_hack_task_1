@@ -97,15 +97,23 @@
                 
                 $.ajax({
                     type: 'POST',
-                    url: "{{ url_for('index') }}",
-                    data: {
+                    // url: "{{ url_for('index') }}",
+										url: '/hackathon/',
+									data: {
                         'add_field': 'true',
                         'field_type': $('#field-type-select').val(),
                         'field_count': fieldCount
                     },
-                    success: function(response) {
-                        $('#fields-container').append(response.html);
-                    }
+                    // success: function(response) {
+                        // $('#fields-container').append(response.html);
+										success: function(response) {
+        								console.log("Ответ сервера:", response);  // Добавьте эту строку
+        								$('#fields-container').append(response.html);
+    								},
+    								error: function(xhr) {
+        								console.error("Ошибка:", xhr.responseText);
+    								}
+                    // }
                 });
             });
             
