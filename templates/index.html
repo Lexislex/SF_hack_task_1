@@ -3,59 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask Form Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"], input[type="email"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f0f0f0;
-            border-radius: 5px;
-        }
-    </style>
+    <title>Форма с данными по умолчанию</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Форма ввода</h1>
-    <form method="POST">
-        <div class="form-group">
-            <label for="name">Имя:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-        </div>
-        <div class="form-group">
-            <label>
-                <input type="checkbox" name="newsletter" value="yes">
-                Подписаться на рассылку
-            </label>
-        </div>
-        <button type="submit">Отправить</button>
-    </form>
-
-    {% if result %}
-    <div class="result">
-        <h2>Результат:</h2>
-        <p>{{ result }}</p>
+    {% if not form_submitted %}
+    <div class="form-container">
+        <h1>Внесите данные общего анализа крови</h1>
+        
+        <form id="main-form" method="POST">
+            <h3 class="section-title">Обязательные поля</h3>
+            
+            {% for field_name, field_config in required_fields.items() %}
+            <div class="form-group">
+                <label class="required-field" for="{{ field_name }}">{{ field_config.label }}</label>
+                {% if field_config.type == 'select' %}
+                    <select name="{{ field_name }}" id="{{ field_name }}" required>
+                        {% for option in field_config.options %}
+                            <option value="{{ option }}" {% if field_config.default == option %}selected{% endif %}>
+                                {{ option }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                {% elif field_config.type == 'checkbox' %}
+                    <label class="checkbox-label">
+                        <input type="{{ field_config.type }}" 
+                               name="{{ field_name }}" 
+                               id="{{ field_name }}"
+                               value="{{ field_config.value }}"
+                               {% if field_config.required %}required{% endif %}>
+                        {{ field_config.label }}
+                    </label>
+                {% else %}
+                    <div class="input-with-unit">
+                        <input type="{{ field_config.type }}" 
+                               name="{{ field_name }}" 
+                               id="{{ field_name }}" 
+                               value="{{ field_config.default }}"
+                               {% if field_config.required %}required{% endif %}>
+                        {% if field_config.unit %}
+                        <span class="unit">{{ field_config.unit }}</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            
+            <h3 class="section-title">Дополнительные поля</h3>
+            <div id="fields-container">
+                <!-- Сюда будут добавляться дополнительные поля -->
+            </div>
+            
+            <div class="form-group">
+                <label>Добавить поле:</label>
+                <div class="field-row">
+                    <select id="field-type-select" name="field_type">
+                        {% for key, field in field_types.items() %}
+                            <option value="{{ key }}">{{ field.label }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" id="add-field-btn">Добавить</button>
+                    <input type="hidden" id="field-count" name="field_count" value="0">
+                </div>
+            </div>
+            
+            <button type="submit">Отправить форму</button>
+        </form>
     </div>
     {% endif %}
+    
+    <div class="result-container">
+        {% if result %}
+        <div class="result">
+            <h2>Результат:</h2>
+            <p>{{ result | safe }}</p>
+        </div>
+        {% endif %}
+        
+        <form method="POST">
+            <input type="hidden" name="new_form" value="true">
+            <button type="submit" class="new-form-btn">Заполнить новую форму</button>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            let fieldCount = 0;
+            
+            $('#add-field-btn').click(function() {
+                fieldCount++;
+                $('#field-count').val(fieldCount);
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/',
+                    data: {
+                        'add_field': 'true',
+                        'field_type': $('#field-type-select').val(),
+                        'field_count': fieldCount
+                    },
+                    success: function(response) {
+                        $('#fields-container').append(response.html);
+                    }
+                });
+            });
+            
+            $(document).on('click', '.remove-btn', function() {
+                $(this).closest('.field-row').remove();
+            });
+        });
+    </script>
 </body>
 </html>
