@@ -2,34 +2,38 @@
     <div class="form-group" style="flex-grow: 1;">
         {% if field_config.type == 'select' %}
             <label for="{{ field_id }}">{{ field_config.label }}:</label>
-            <select name="{{ field_id }}" id="{{ field_id }}">
+            <select name="{{ field_name }}" id="{{ field_id }}">
                 {% for option in field_config.options %}
-                    <option value="{{ option }}">{{ option }}</option>
+                    <option value="{{ option }}" {% if field_config.default == option %}selected{% endif %}>
+                        {{ option }}
+                    </option>
                 {% endfor %}
             </select>
         {% elif field_config.type == 'checkbox' %}
             <label class="checkbox-label">
                 <input type="{{ field_config.type }}" 
-                       name="{{ field_id }}" 
+                       name="{{ field_name }}" 
                        id="{{ field_id }}"
-                       value="{{ field_config.value }}">
+                       value="{{ field_config.value }}"
+                       {% if field_config.default %}checked{% endif %}>
                 {{ field_config.label }}
             </label>
         {% elif field_config.type == 'number' %}
             <label for="{{ field_id }}">{{ field_config.label }}</label>
             <div class="input-with-unit">
                 <input type="number" 
-                    name="{{ field_id }}" 
+                    name="{{ field_name }}" 
                     id="{{ field_id }}"
-                    {% if field_config.default %}value="{{ field_config.default }}"{% endif %}
+                    value="{{ field_config.default }}"
                     {% if field_config.step %}step="{{ field_config.step }}"{% endif %}>
                 {% if field_config.unit %}<span class="unit">{{ field_config.unit }}</span>{% endif %}
             </div>
         {% else %}
             <label for="{{ field_id }}">{{ field_config.label }}:</label>
             <input type="{{ field_config.type }}" 
-                   name="{{ field_id }}" 
-                   id="{{ field_id }}">
+                   name="{{ field_name }}" 
+                   id="{{ field_id }}"
+                   value="{{ field_config.default }}">
         {% endif %}
     </div>
     <div class="field-controls">

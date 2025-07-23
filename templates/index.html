@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма с данными по умолчанию</title>
+    <title>Рекомендации по общему анализу крови</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -89,35 +89,37 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            let fieldCount = 0;
+            const addedFields = new Set();
             
             $('#add-field-btn').click(function() {
-                fieldCount++;
-                $('#field-count').val(fieldCount);
+                const fieldType = $('#field-type-select').val();
+                
+                if (addedFields.has(fieldType)) {
+                    alert('Это поле уже добавлено!');
+                    return;
+                }
+                
+                addedFields.add(fieldType);
                 
                 $.ajax({
                     type: 'POST',
-                    // url: "{{ url_for('index') }}",
-										url: '/',
-									data: {
+                    url: '/',
+                    data: {
                         'add_field': 'true',
-                        'field_type': $('#field-type-select').val(),
-                        'field_count': fieldCount
+                        'field_type': fieldType
                     },
-                    // success: function(response) {
-                        // $('#fields-container').append(response.html);
-										success: function(response) {
-        								console.log("Ответ сервера:", response);  // Добавьте эту строку
-        								$('#fields-container').append(response.html);
-    								},
-    								error: function(xhr) {
-        								console.error("Ошибка:", xhr.responseText);
-    								}
-                    // }
+                    success: function(response) {
+                        $('#fields-container').append(response.html);
+                    },
+                    error: function(xhr) {
+                        console.error("Ошибка:", xhr.responseText);
+                    }
                 });
             });
             
             $(document).on('click', '.remove-btn', function() {
+                const fieldType = $(this).closest('.field-row').find('input, select').attr('name');
+                addedFields.delete(fieldType);
                 $(this).closest('.field-row').remove();
             });
         });

@@ -5,13 +5,13 @@ app = Flask(__name__)
 
 # Доступные типы полей для добавления
 FIELD_TYPES = {
-    'text': {'type': 'text', 'label': 'Текстовое поле', 'default': '+79991234567'},
-    'email': {'type': 'email', 'label': 'Email'},
-    'number': {'type': 'number', 'label': 'Число'},
-    'checkbox': {'type': 'checkbox', 'label': 'Чекбокс', 'value': 'yes'},
-    'date': {'type': 'date', 'label': 'Дата'},
-    'select': {'type': 'select', 'label': 'Выпадающий список', 
-               'options': ['Вариант 1', 'Вариант 2', 'Вариант 3']}
+    'text': {'type': 'text', 'label': 'Текстовое поле', 'default': 'Значение по умолчанию'},
+    'email': {'type': 'email', 'label': 'Email', 'default': 'example@mail.com'},
+    'number': {'type': 'number', 'label': 'Число', 'default': 0},
+    'agreement': {'type': 'checkbox', 'label': 'Согласие', 'value': 'yes', 'default': True},
+    'birthdate': {'type': 'date', 'label': 'Дата рождения', 'default': '2000-01-01'},
+    'gender': {'type': 'select', 'label': 'Пол', 
+               'options': ['Мужской', 'Женский'], 'default': 'Мужской'}
 }
 
 # Обязательные поля с значениями по умолчанию
@@ -55,7 +55,7 @@ def process_data(form_data):
         if field_name in REQUIRED_FIELDS:
             required_results.append(f"{REQUIRED_FIELDS[field_name]['label']}: {value}")
         elif field_name not in ['add_field', 'field_type', 'field_count']:
-            additional_results.append(f"{field_name}: {value}")
+            additional_results.append(f"{FIELD_TYPES[field_name]['label']}: {value}")
     
     if len(additional_results) == 1:
         additional_results.append("Нет дополнительных полей")
@@ -68,13 +68,13 @@ def index():
         if 'add_field' in request.form:
             # Обработка добавления нового поля (AJAX запрос)
             field_type = request.form.get('field_type')
-            field_count = int(request.form.get('field_count', 0)) + 1
-            field_id = f"custom_field_{field_count}"
+            field_key = field_type  # Используем ключ из FIELD_TYPES как имя поля
             
-            field_config = FIELD_TYPES.get(field_type, FIELD_TYPES['text'])
+            field_config = FIELD_TYPES.get(field_type, FIELD_TYPES['gender'])
             return jsonify({
                 'html': render_template('_field.html', 
-                                     field_id=field_id,
+                                     field_id=field_key,  # Используем ключ как ID
+                                     field_name=field_key,  # Используем ключ как name
                                      field_config=field_config)
             })
         elif 'new_form' in request.form:
