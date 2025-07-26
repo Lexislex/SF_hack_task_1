@@ -83,12 +83,21 @@
                                 </option>
                             {% endfor %}
                         </select>
+                    {% elif field_config.unit %}
+                        <div class="input-with-unit">
+                            <input type="{{ field_config.type }}" 
+                                name="{{ field_name }}" 
+                                id="{{ field_name }}" 
+                                value="{{ field_config.default }}"
+                                {% if field_config.required %}required{% endif %}>
+                            <span class="unit">{{ field_config.unit }}</span>
+                        </div>
                     {% else %}
                         <input type="{{ field_config.type }}" 
-                               name="{{ field_name }}" 
-                               id="{{ field_name }}" 
-                               value="{{ field_config.default }}"
-                               {% if field_config.required %}required{% endif %}>
+                            name="{{ field_name }}" 
+                            id="{{ field_name }}" 
+                            value="{{ field_config.default }}"
+                            {% if field_config.required %}required{% endif %}>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -113,7 +122,7 @@
                     <label for="{{ field_name }}">
                         {{ field_config.label }}
                         {% if field_config.tooltip %}
-                        <span class="tooltip">🛈<span class="tooltiptext">{{ field_config.tooltip }}</span></span>
+                        <span class="tooltip">ⓘ<span class="tooltiptext">{{ field_config.tooltip }}</span></span>
                         {% endif %}
                     </label>
                     {% if field_config.type == 'select' %}
@@ -124,12 +133,21 @@
                                 </option>
                             {% endfor %}
                         </select>
+                    {% elif field_config.unit %}
+                        <div class="input-with-unit">
+                            <input type="{{ field_config.type }}" 
+                                name="{{ field_name }}" 
+                                id="{{ field_name }}" 
+                                value="{{ field_config.default }}"
+                                {% if field_config.required %}required{% endif %}>
+                            <span class="unit">{{ field_config.unit }}</span>
+                        </div>
                     {% else %}
                         <input type="{{ field_config.type }}" 
-                               name="{{ field_name }}" 
-                               id="{{ field_name }}" 
-                               value="{{ field_config.default }}"
-                               {% if field_config.required %}required{% endif %}>
+                            name="{{ field_name }}" 
+                            id="{{ field_name }}" 
+                            value="{{ field_config.default }}"
+                            {% if field_config.required %}required{% endif %}>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -154,7 +172,7 @@
                     <label for="{{ field_name }}">
                         {{ field_config.label }}
                         {% if field_config.tooltip %}
-                        <span class="tooltip">🛈<span class="tooltiptext">{{ field_config.tooltip }}</span></span>
+                        <span class="tooltip">ⓘ<span class="tooltiptext">{{ field_config.tooltip }}</span></span>
                         {% endif %}
                     </label>
                     {% if field_config.type == 'select' %}
@@ -165,12 +183,21 @@
                                 </option>
                             {% endfor %}
                         </select>
+                    {% elif field_config.unit %}
+                        <div class="input-with-unit">
+                            <input type="{{ field_config.type }}" 
+                                name="{{ field_name }}" 
+                                id="{{ field_name }}" 
+                                value="{{ field_config.default }}"
+                                {% if field_config.required %}required{% endif %}>
+                            <span class="unit">{{ field_config.unit }}</span>
+                        </div>
                     {% else %}
                         <input type="{{ field_config.type }}" 
-                               name="{{ field_name }}" 
-                               id="{{ field_name }}" 
-                               value="{{ field_config.default }}"
-                               {% if field_config.required %}required{% endif %}>
+                            name="{{ field_name }}" 
+                            id="{{ field_name }}" 
+                            value="{{ field_config.default }}"
+                            {% if field_config.required %}required{% endif %}>
                     {% endif %}
                 </div>
                 {% endfor %}

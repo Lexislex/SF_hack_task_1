@@ -6,74 +6,118 @@ app = Flask(__name__)
 # Группировка полей по категориям
 REQUIRED_FIELDS = {
     'patient': {
-        'sex': {
-            'type': 'select', 
-            'label': 'Пол', 
-            'required': True,
-            'options': ['Муж.', 'Жен.'], 
-            'default': 'Муж.',
-            'tooltip': 'Биологический пол пациента'
+        'gender': {
+            'type': 'select',
+            'label': 'Пол',
+            'required': True, 
+            'options': ['Мужской', 'Женский'],
+            'default': 'Мужской',
+            'tooltip': 'Пол пациента'
         },
         'birth_date': {
-            'type': 'date', 
-            'label': 'Дата рождения', 
-            'required': True, 
+            'type': 'date',
+            'label': 'Дата рождения',
+            'required': True,
             'default': '2000-01-01',
-            'tooltip': 'Формат: ГГГГ-ММ-ДД'
-        }
+            'tooltip': 'Дата рождения'    
+        },
+        'labstudy_date': {
+            'type': 'date',
+            'label': 'Дата проведения исследования',
+            'required': True,
+            'default': '2025-07-21',
+            'tooltip': 'Дата забора материала'
+        },
     },
     'red_blood': {
-        'hemoglobin': {
-            'type': 'number', 
-            'label': 'Гемоглобин', 
-            'default': 120,
-            'unit': 'г/л',
-            'required': True,
-            'tooltip': 'Норма: 130-160 (м), 120-140 (ж)'
-        },
-        'erythrocytes': {
+        'rbc': {
             'type': 'number',
             'label': 'Эритроциты',
             'default': 4.5,
             'unit': '×10¹²/л',
             'required': True,
-            'tooltip': 'Норма: 4.0-5.1 (м), 3.7-4.7 (ж)'
-        }
+            'tooltip': 'Норма: 3,8-5,8 × 10¹²/л'
+        },
+        'hgb': {
+            'type': 'number', 
+            'label': 'Гемоглобин', 
+            'default': 120,
+            'unit': 'г/л',
+            'required': True,
+            'tooltip': 'Норма: 120-140 г/л'
+        },
+        'hct': {
+            'type': 'number', 
+            'label': 'Гематокрит', 
+            'default': 35,
+            'unit': '%',
+            'required': True,
+            'tooltip': 'Норма: 39-49 %'
+        },
+        'cp': {
+            'type': 'number', 
+            'label': 'Цветовой показатель', 
+            'default': 0.9,
+            'unit': '',
+            'required': True,
+            'tooltip': 'Норма: 0,85-1'
+        },
+        'soe': {
+            'type': 'number',
+            'label': 'СОЭ',
+            'default': 7,
+            'unit': 'мм/ч',
+            'required': True,
+            'tooltip': 'Норма: 2-10 мм/ч'
+        },
     },
     'white_blood': {
-        'leukocytes': {
+        'wbc': {
             'type': 'number',
             'label': 'Лейкоциты',
             'default': 6.5,
             'unit': '×10⁹/л',
             'required': True,
-            'tooltip': 'Норма: 4.0-9.0'
-        }
+            'tooltip': 'Норма: 4-9 × 10⁹/л'
+        },
     },
     'platelets': {
-        'platelets_count': {
+        'plt': {
             'type': 'number',
             'label': 'Тромбоциты',
-            'default': 250,
+            'default': 200,
             'unit': '×10⁹/л',
             'required': True,
-            'tooltip': 'Норма: 180-320'
+            'tooltip': 'Норма: 180-320 × 10⁹/л'
         }
     }
 }
 
 FIELD_TYPES = {
     'patient': {
-        'allergy': {'type': 'text', 'label': 'Аллергии', 'default': ''},
-        'medication': {'type': 'text', 'label': 'Приём препаратов', 'default': ''}
+        'pregnancy': {
+            'type': 'number',
+            'label': 'Срок беременности',
+            'unit': 'нед.',
+            'default': 16
+        },
     },
     'red_blood': {
-        'mch': {'type': 'number', 'label': 'MCH', 'unit': 'пг', 'default': 27},
-        'mchc': {'type': 'number', 'label': 'MCHC', 'unit': 'г/л', 'default': 330}
+        'mcv': {'type': 'number', 'label': 'MCV', 'unit': 'фл', 'default': 89},
+        'mchc': {'type': 'number', 'label': 'MCHC', 'unit': 'г/л', 'default': 330},
+        'rdw': {'type': 'number', 'label': 'RDW', 'unit': '%', 'default': 12},
+        'rdv_sd': {'type': 'number', 'label': 'RDW-SD', 'unit': 'фл', 'default': 45},
+        'ret_abs': {'type': 'number', 'label': 'MCHC', 'unit': '×10⁹/л', 'default': 30},
     },
     'white_blood': {
-        'neutrophils': {'type': 'number', 'label': 'Нейтрофилы', 'unit': '%', 'default': 55},
-        'lymphocytes': {'type': 'number', 'label': 'Лимфоциты', 'unit': '%', 'default': 35}
+        'ne_abs': {'type': 'number', 'label': 'Нейтрофилы', 'unit': '×10⁹/л', 'default': 3.5},
+        'pal': {'type': 'number', 'label': 'Палочкоядерные', 'unit': '%', 'default': 3},
+        'seg': {'type': 'number', 'label': 'Сегментоядерные', 'unit': '%', 'default': 57},
+        'ly_abs': {'type': 'number', 'label': 'Лимфоциты', 'unit': '×10⁹/л', 'default': 3.5},
+        'mo_abs': {'type': 'number', 'label': 'Моноциты', 'unit': '×10⁹/л', 'default': 0.5},
+        'eo_abs': {'type': 'number', 'label': 'Эозинофилы', 'unit': '×10⁹/л', 'default': 0.3},
+        'ba_abs': {'type': 'number', 'label': 'Базофилы', 'unit': '×10⁹/л', 'default': 0.3},
+        'mxd_abs': {'type': 'number', 'label': 'Смеш, фракция', 'unit': '×10⁹/л', 'default': 0.3},
     },
     'platelets': {
         'mpv': {'type': 'number', 'label': 'MPV', 'unit': 'фл', 'default': 7.5},
@@ -134,7 +178,7 @@ def process_data(form_data):
             else:
                 # Если поле не подходит ни к одной категории
                 results['patient'].append(f"{field_name}: {value}")
-    
+    print(results)
     # Собираем итоговый результат, пропуская пустые секции
     final_result = []
     for section, items in results.items():
