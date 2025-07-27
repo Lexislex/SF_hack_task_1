@@ -4,41 +4,118 @@ app = Flask(__name__)
 
 # Обязательные поля с значениями по умолчанию
 REQUIRED_FIELDS = {
-    'sex': {'type': 'select', 'label': 'Пол', 'required': True, 
-            'options': ['Муж.', 'Жен.'], 'default': 'Муж.'},
-    'birth_date': {'type': 'date', 'label': 'Дата рождения', 'required': True, 'default': '2000-01-01'},
-    'hemoglobin': {
-        'type': 'number', 
-        'label': 'Гемоглобин', 
-        'default': 120,
-        'unit': 'г/л',
-        'required': True
+
+    'gender': {
+        'type': 'select',
+        'label': 'Пол',
+        'required': True, 
+        'options': ['Мужской', 'Женский'],
+        'default': 'Мужской',
+        'tooltip': 'Пол пациента'
     },
-    'leukocytes': {
-        'type': 'number',
-        'label': 'Лейкоциты',
-        'default': 6.5,
-        'unit': '×10⁹/л',
-        'required': True
+    'birth_date': {
+        'type': 'date',
+        'label': 'Дата рождения',
+        'required': True,
+        'default': '2000-01-01',
+        'tooltip': 'Дата рождения'    
     },
-    'erythrocytes': {
+    'labstudy_date': {
+        'type': 'date',
+        'label': 'Дата проведения исследования',
+        'required': True,
+        'default': '2025-07-21',
+        'tooltip': 'Дата забора материала'
+    },
+
+    'rbc': {
         'type': 'number',
         'label': 'Эритроциты',
         'default': 4.5,
         'unit': '×10¹²/л',
-        'required': True
+        'required': True,
+        'tooltip': 'Норма: 3,8-5,8 × 10¹²/л'
+    },
+    'hgb': {
+        'type': 'number', 
+        'label': 'Гемоглобин', 
+        'default': 120,
+        'unit': 'г/л',
+        'required': True,
+        'tooltip': 'Норма: 120-140 г/л'
+    },
+    'hct': {
+        'type': 'number', 
+        'label': 'Гематокрит', 
+        'default': 35,
+        'unit': '%',
+        'required': True,
+        'tooltip': 'Норма: 39-49 %'
+    },
+    'cp': {
+        'type': 'number', 
+        'label': 'Цветовой показатель', 
+        'default': 0.9,
+        'unit': '',
+        'required': True,
+        'tooltip': 'Норма: 0,85-1'
+    },
+    'soe': {
+        'type': 'number',
+        'label': 'СОЭ',
+        'default': 7,
+        'unit': 'мм/ч',
+        'required': True,
+        'tooltip': 'Норма: 2-10 мм/ч'
+    },
+
+    'wbc': {
+        'type': 'number',
+        'label': 'Лейкоциты',
+        'default': 6.5,
+        'unit': '×10⁹/л',
+        'required': True,
+        'tooltip': 'Норма: 4-9 × 10⁹/л'
+    },
+
+    'plt': {
+        'type': 'number',
+        'label': 'Тромбоциты',
+        'default': 200,
+        'unit': '×10⁹/л',
+        'required': True,
+        'tooltip': 'Норма: 180-320 × 10⁹/л'
     }
+    
 }
 
-# Доступные типы полей для добавления
 FIELD_TYPES = {
-    'text': {'type': 'text', 'label': 'Текстовое поле', 'default': 'Значение по умолчанию'},
-    'email': {'type': 'email', 'label': 'Email', 'default': 'example@mail.com'},
-    'number': {'type': 'number', 'label': 'Число', 'default': 0},
-    'agreement': {'type': 'checkbox', 'label': 'Согласие', 'value': 'yes', 'default': True},
-    'birthdate': {'type': 'date', 'label': 'Дата рождения', 'default': '2000-01-01'},
-    'gender': {'type': 'select', 'label': 'Пол', 
-               'options': ['Мужской', 'Женский'], 'default': 'Мужской'}
+    
+    'pregnancy': {
+        'type': 'number',
+        'label': 'Срок беременности',
+        'unit': 'нед.',
+        'default': 16
+    },
+
+    'mcv': {'type': 'number', 'label': 'MCV', 'unit': 'фл', 'default': 89},
+    'mchc': {'type': 'number', 'label': 'MCHC', 'unit': 'г/л', 'default': 330},
+    'rdw': {'type': 'number', 'label': 'RDW', 'unit': '%', 'default': 12},
+    'rdv_sd': {'type': 'number', 'label': 'RDW-SD', 'unit': 'фл', 'default': 45},
+    'ret_abs': {'type': 'number', 'label': 'MCHC', 'unit': '×10⁹/л', 'default': 30},
+
+    'ne_abs': {'type': 'number', 'label': 'Нейтрофилы', 'unit': '×10⁹/л', 'default': 3.5},
+    'pal': {'type': 'number', 'label': 'Палочкоядерные', 'unit': '%', 'default': 3},
+    'seg': {'type': 'number', 'label': 'Сегментоядерные', 'unit': '%', 'default': 57},
+    'ly_abs': {'type': 'number', 'label': 'Лимфоциты', 'unit': '×10⁹/л', 'default': 3.5},
+    'mo_abs': {'type': 'number', 'label': 'Моноциты', 'unit': '×10⁹/л', 'default': 0.5},
+    'eo_abs': {'type': 'number', 'label': 'Эозинофилы', 'unit': '×10⁹/л', 'default': 0.3},
+    'ba_abs': {'type': 'number', 'label': 'Базофилы', 'unit': '×10⁹/л', 'default': 0.3},
+    'mxd_abs': {'type': 'number', 'label': 'Смеш. фракция', 'unit': '×10⁹/л', 'default': 0.3},
+
+    'mpv': {'type': 'number', 'label': 'MPV', 'unit': 'фл', 'default': 7.5},
+    'pdw': {'type': 'number', 'label': 'PDW', 'unit': '%', 'default': 10}
+    
 }
 
 def process_data(form_data):
@@ -69,7 +146,7 @@ def index():
             field_type = request.form.get('field_type')
             field_key = field_type  # Используем ключ из FIELD_TYPES как имя поля
             
-            field_config = FIELD_TYPES.get(field_type, FIELD_TYPES['gender'])
+            field_config = FIELD_TYPES.get(field_type, FIELD_TYPES['pregnancy'])
             return jsonify({
                 'html': render_template('_field.html', 
                                      field_id=field_key,  # Используем ключ как ID
