@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from predict import predict
 
 app = Flask(__name__)
 
@@ -121,7 +122,7 @@ FIELD_TYPES = {
 def process_data(form_data):
     required_results = ["<strong>Обязательные поля:</strong>"]
     additional_results = ["<strong>Дополнительные поля:</strong>"]
-    recomendations = ["<strong>Рекомендации:</strong>"]
+    recomendations = ["<br><strong>Рекомендации:</strong>"]
 
     for field_name, value in form_data.items():
         if field_name in REQUIRED_FIELDS:
@@ -134,7 +135,7 @@ def process_data(form_data):
         additional_results.clear()
 
     # Тут должен быть вызов функции предсказания и рекомендаций
-    # print(form_data.to_dict())
+    recomendations.append(f'выявлено: <font color="red">{predict(form_data.to_dict())}</font>')
     
     return "<br>".join(required_results + additional_results + recomendations)
 
