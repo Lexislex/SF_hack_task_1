@@ -61,18 +61,28 @@ def preprocess_df(df_clean: pd.DataFrame) -> pd.DataFrame:
             'mo_abs', 'eo_abs', 'ba_abs', 'pal', 'seg', 'mxd_abs',
             'plasma', 'plt', 'mpv', 'pdw', 'plcr', 'soe', 'myelo',
             'yunye', 'blasty', 'normobl_abs']
+    order = ['gender', 'age', 'rbc', 'hgb', 'hct', 'mcv', 'mchc', 'rdw', 'rdv_sd',
+            'ret_abs', 'cp', 'anisocytos', 'hypochromia', 'macrocytos',
+            'microcytos', 'poikilocytos', 'wbc', 'ne_abs', 'ly_abs', 'mo_abs',
+            'eo_abs', 'ba_abs', 'pal', 'seg', 'mxd_abs', 'plasma', 'plt', 'mpv',
+            'pdw', 'plcr', 'soe', 'myelo', 'yunye', 'blasty', 'normoblast',
+            'normobl_abs', 'prolym', 'promyelo']
+
 
     # Кодируем категориальные переменные
 
     
     # Стандартизация числовых признаков в тренировочном и валидационном наборе
-    numeric_data = df_clean[num_col].copy()
-    min_max = MinMaxScaler()
-    scaled_features = min_max.fit_transform(numeric_data)
-    normalized_data = pd.DataFrame(scaled_features, columns=numeric_data.columns)
-    df_clean = pd.concat([normalized_data, df_clean[bool_col]], axis=1)
+    # numeric_data = df_clean[num_col].copy()
+    # scaler = StandardScaler()
+    # scaled_features = scaler.fit_transform(numeric_data)
+    # normalized_data = pd.DataFrame(scaled_features, columns=numeric_data.columns)
+    # df_clean = pd.concat([normalized_data, df_clean[bool_col]], axis=1)
 
-    return df_clean
+    x_scaler = StandardScaler()
+    df_clean[num_col] = x_scaler.fit_transform(df_clean[num_col])
+
+    return df_clean[order]
 
 def preprocess_dict(data_dict):
     del data_dict['field_type'], \
@@ -112,4 +122,4 @@ def predict(form_data):
         exit()
 
 if __name__ == "__main__":
-    print(predict(TEST_DATA))
+    print(predict(TEST_DATA)[0])

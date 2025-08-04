@@ -115,45 +115,48 @@ FIELDS_DICT = {
         'microcytos': {'type': 'checkbox', 'label': 'Микроцитоз', 'value': 1,'default': False},
         'poikilocytos': {'type': 'checkbox', 'label': 'Пойкилоцитоз', 'value': 1,'default': False},
         'normoblast': {'type': 'checkbox', 'label': 'Нормобласты', 'value': 1,'default': False},
+        'prolym': {'type': 'checkbox', 'label': 'Пролимфоциты', 'value': 1,'default': False},
         'promyelo': {'type': 'checkbox', 'label': 'Промиелоциты', 'value': 1,'default': False},
         
     },
 }
 
-TEST_DATA = {
-    'gender': 'Мужской',
-    'birth_date': '2000-01-01',
-    'labstudy_date': '2025-07-21',
-    'rbc': '4.5',
-    'hgb': '120',
-    'hct': '35',
-    'cp': '0.9',
-    'soe': '7',
-    'wbc': '6.5',
-    'plt': '200',
-    'mcv': '89',
-    'mchc': '330',
-    'rdw': '12',
-    'rdv_sd': '45',
-    'ret_abs': '30',
-    'ne_abs': '3.5',
-    'pal': '3',
-    'seg': '57',
-    'ly_abs': '3.5',
-    'mo_abs': '0.5',
-    'eo_abs': '0.3',
-    'ba_abs': '0.3',
-    'mxd_abs': '0.3',
-    'mpv': '7.5',
-    'pdw': '10',
-    'field_type': 'pdw', 'field_count': '0'
-}
+# TEST_DATA = {
+#     'gender': 'Мужской',
+#     'birth_date': '2000-01-01',
+#     'labstudy_date': '2025-07-21',
+#     'rbc': '4.5',
+#     'hgb': '120',
+#     'hct': '35',
+#     'cp': '0.9',
+#     'soe': '7',
+#     'wbc': '6.5',
+#     'plt': '200',
+#     'mcv': '89',
+#     'mchc': '330',
+#     'rdw': '12',
+#     'rdv_sd': '45',
+#     'ret_abs': '30',
+#     'ne_abs': '3.5',
+#     'pal': '3',
+#     'seg': '57',
+#     'ly_abs': '3.5',
+#     'mo_abs': '0.5',
+#     'eo_abs': '0.3',
+#     'ba_abs': '0.3',
+#     'mxd_abs': '0.3',
+#     'mpv': '7.5',
+#     'pdw': '10',
+#     'field_type': 'pdw', 'field_count': '0'
+# }
+
+TEST_DATA = {'gender': 'Мужской', 'birth_date': '2000-01-01', 'labstudy_date': '2025-07-21', 'rbc': '4.5', 'hgb': '120', 'hct': '35', 'cp': '0.9', 'soe': '7', 'wbc': '6.5', 'plt': '200', 'field_type': 'mcv', 'field_count': '0'}
 
 REF_COLUMNS = ['age', 'rbc', 'hgb', 'hct', 'mcv', 'mchc', 'rdw', 'rdv_sd', 'ret_abs',
        'cp', 'wbc', 'ne_abs', 'ly_abs', 'mo_abs', 'eo_abs', 'ba_abs', 'pal',
        'seg', 'mxd_abs', 'plasma', 'plt', 'mpv', 'pdw', 'plcr', 'soe', 'myelo',
        'yunye', 'blasty', 'normobl_abs', 'gender', 'anisocytos', 'hypochromia',
-       'macrocytos', 'microcytos', 'poikilocytos', 'normoblast', 'promyelo']
+       'macrocytos', 'microcytos', 'poikilocytos', 'normoblast', 'prolym', 'promyelo']
 
 RESULT_DICT = {
     0: 'Картина нормального анализа крови',
