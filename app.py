@@ -30,9 +30,10 @@ def process_data(form_data):
         additional_results.clear()
 
     # Вызов функции предсказания и рекомендаций
-    print(form_data.to_dict())
-    prediction = RESULT_DICT[predict(form_data.to_dict())[0]]
-    recomendations.append(f'Выявлено: <font color="red">{prediction}</font>')
+    prediction = predict(form_data.to_dict())[0]
+    disease, recomends = RESULT_DICT[prediction][0], RESULT_DICT[prediction][1]
+    recomendations.append(f'<u>Выявлено:</u> <font color="red">{disease}</font><br>'\
+                          f'<u>Рекомендовано:</u> {recomends}')
     
     return "<br>".join(required_results + additional_results + recomendations)
 

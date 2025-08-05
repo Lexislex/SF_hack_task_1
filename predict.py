@@ -79,8 +79,8 @@ def preprocess_df(df_clean: pd.DataFrame) -> pd.DataFrame:
     # normalized_data = pd.DataFrame(scaled_features, columns=numeric_data.columns)
     # df_clean = pd.concat([normalized_data, df_clean[bool_col]], axis=1)
 
-    x_scaler = StandardScaler()
-    df_clean[num_col] = x_scaler.fit_transform(df_clean[num_col])
+    # x_scaler = StandardScaler()
+    # df_clean[num_col] = x_scaler.fit_transform(df_clean[num_col])
 
     return df_clean[order]
 
