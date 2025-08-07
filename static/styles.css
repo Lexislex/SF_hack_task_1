@@ -1,0 +1,226 @@
+/* Общие стили */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Заголовки */
+h1, h2, h3 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 0.5rem;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    color: #3498db;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Контейнеры */
+.form-container {
+    display: {% if not form_submitted %}block{% else %}none{% endif %};
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.result-container {
+    display: block;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+/* Форма */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Стиль для полей с единицами измерения */
+/* .form-group .unit {
+    display: inline-block;
+    margin-left: 8px;
+    color: #666;
+    font-size: 0.9em;
+} */
+
+/* Выравнивание для числовых полей */
+/* input[type="number"] {
+    width: calc(100% - 40px); /* Оставляем место для единиц
+    display: inline-block;
+    vertical-align: middle;
+} */
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+}
+
+.input-with-unit input {
+    flex: 1;
+    margin-right: 8px;
+}
+
+.unit {
+    color: #666;
+    min-width: 30px;
+    white-space: nowrap;
+}
+
+/* Для числовых полей сделаем уже, чтобы было место для единиц */
+input[type="number"] {
+    width: 100px;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.required-field::after {
+    content: " *";
+    color: #e74c3c;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+    height: 44px; /* Фиксированная высота для выравнивания */
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+/* Кнопки */
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 44px; /* Фиксированная высота */
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+#add-field-btn {
+    background-color: #3498db;
+    color: white;
+    margin-left: 0.5rem;
+}
+
+#add-field-btn:hover {
+    background-color: #2980b9;
+}
+
+.remove-btn {
+    background: #e74c3c;
+    color: white;
+    width: 44px;
+    padding: 0;
+}
+
+.remove-btn:hover {
+    background: #c0392b;
+}
+
+button[type="submit"] {
+    background-color: #2ecc71;
+    color: white;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+    background-color: #27ae60;
+}
+
+.new-form-btn {
+    background-color: #9b59b6;
+    color: white;
+    width: 100%;
+}
+
+.new-form-btn:hover {
+    background-color: #8e44ad;
+}
+
+/* Группы полей */
+.field-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.field-controls {
+    margin-left: 0.5rem;
+}
+
+/* Результаты */
+.result {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #3498db;
+}
+
+.result strong {
+    color: #2c3e50;
+}
+
+/* Чекбокс */
+input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin-right: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
