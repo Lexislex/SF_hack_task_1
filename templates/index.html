@@ -40,6 +40,7 @@
                                name="{{ field_name }}" 
                                id="{{ field_name }}" 
                                value="{{ field_config.default }}"
+                               {% if field_config.step %}step="{{ field_config.step }}"{% endif %}
                                {% if field_config.required %}required{% endif %}>
                         {% if field_config.unit %}
                         <span class="unit">{{ field_config.unit }}</span>
