@@ -224,3 +224,68 @@ input[type="checkbox"] {
     align-items: center;
     cursor: pointer;
 }
+
+.disclaimer-warning {
+  background-color: #fff8e6; /* Светло-желтый, предупреждающий фон */
+  border-left: 4px solid #ff9800; /* Оранжевая полоса слева для акцента */
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 4px 4px 0; /* Закругление справа */
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #5c3b00; /* Тёмно-коричневый текст для хорошей читаемости на светлом фоне */
+}
+
+/* Иконка внимания (опционально) */
+.disclaimer-warning::before {
+  content: "⚠️ "; /* или используйте FontAwesome */
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* .disclaimer-footer {
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0.5rem;
+  color: #888; 
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+  font-style: italic;
+  background-color: #f9f9f9;
+}
+
+.disclaimer-header {
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0.5rem;
+  color: #888; 
+  border-bottom: 1px solid #eee;
+  margin-bottom: 2rem;
+  font-style: italic;
+  background-color: #f9f9f9;
+} */
+
+/* Общий стиль для дисклеймера в хедере и футере */
+.disclaimer-header,
+.disclaimer-footer {
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0.5rem;
+  color: #888;
+  background-color: #f9f9f9;
+  font-style: italic;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Специфичные стили для хедера */
+.disclaimer-header {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+}
+
+/* Специфичные стили для футера */
+.disclaimer-footer {
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+}
